@@ -34,3 +34,15 @@ func Len(t *testing.T, array any, expected int) {
 func Empty(t *testing.T, array any) {
 	Len(t, array, 0)
 }
+
+func Contains(t *testing.T, array any, expected any) {
+	v := reflect.ValueOf(array)
+
+	for i := 0; i < v.Len(); i++ {
+		if v.Index(i).Interface() == expected {
+			return
+		}
+	}
+
+	t.Errorf("Expected %v to contain %v", array, expected)
+}
